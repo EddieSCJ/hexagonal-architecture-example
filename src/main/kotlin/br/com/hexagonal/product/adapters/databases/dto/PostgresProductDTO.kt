@@ -9,14 +9,14 @@ import java.util.UUID
 @Table(name = "products")
 class PostgresProductDTO(): ProductDTO{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    override var id: Int? = null
+    @GeneratedValue(strategy = GenerationType.UUID)
+    override var id: String? = null
     override var name: String = ""
     override var price: Double = 0.0
     override var description: String? = null
     override var enabled: Boolean = true
 
-    constructor(id: Int?, name: String, price: Double, description: String, enabled: Boolean) : this() {
+    constructor(id: String?, name: String, price: Double, description: String, enabled: Boolean) : this() {
         this.id = id
         this.name = name
         this.price = price

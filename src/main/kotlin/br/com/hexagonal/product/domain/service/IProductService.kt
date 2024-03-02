@@ -7,9 +7,9 @@ interface IProductService {
 
     fun updateProduct(product: Product): Product
 
-    fun deleteProduct(id: Int)
+    fun deleteProduct(id: String)
 
-    fun getProduct(id: Int): Product?
+    fun getProduct(id: String): Product?
 
     fun getProducts(): List<Product>
 }

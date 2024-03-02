@@ -16,30 +16,22 @@ class MongoAdapter(val mongoTemplate: MongoTemplate) : ProductReaderRepository, 
         return mongoTemplate.findAll(MongoProductDTO::class.java).map { it.toDomain() }
     }
 
-    override fun findById(id: Int): Product? {
+    override fun findById(id: String): Product? {
         return mongoTemplate.findById(id, MongoProductDTO::class.java)?.toDomain()
     }
 
     override fun save(entity: Product): Product {
-        val productDTO = MongoProductDTO(
-            id = entity.id.toString(),
-            name = entity.name,
-            price = entity.price
-        )
+        val productDTO = MongoProductDTO.fromDomain(entity)
         return mongoTemplate.save(productDTO).toDomain()
     }
 
     override fun update(entity: Product): Product {
-        val productDTO = MongoProductDTO(
-            id = entity.id.toString(),
-            name = entity.name,
-            price = entity.price
-        )
+        val productDTO = MongoProductDTO.fromDomain(entity)
         return mongoTemplate.save(productDTO).toDomain()
     }
 
-    override fun deleteById(id: Int) {
-       mongoTemplate.remove(query(where("_id").`is`(id.toString())), MongoProductDTO::class.java)
+    override fun deleteById(id: String) {
+       mongoTemplate.remove(query(where("_id").`is`(id)), MongoProductDTO::class.java)
     }
 
 }

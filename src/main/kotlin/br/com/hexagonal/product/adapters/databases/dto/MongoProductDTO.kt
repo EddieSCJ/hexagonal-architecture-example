@@ -19,7 +19,7 @@ data class MongoProductDTO(
     override fun toDomain() = ProductFactory.create(id, name, price)
 
     companion object {
-         fun fromDomain(product: Product) = ProductFactory.create(
+         fun fromDomain(product: Product) = MongoProductDTO(
              id = product.id?.toString(),
              name = product.name,
              price = product.price

@@ -36,12 +36,12 @@ class ProductService(
         return productUpdated
     }
 
-    override fun deleteProduct(id: Int) {
+    override fun deleteProduct(id: String) {
         productWriterRepository.deleteById(id)
         productEventDispatcher.dispatch(ProductDeleted.EVENT_NAME, ProductDeleted(id))
     }
 
-    override fun getProduct(id: Int): Product? {
+    override fun getProduct(id: String): Product? {
         return productReaderRepository.findById(id)
     }
 

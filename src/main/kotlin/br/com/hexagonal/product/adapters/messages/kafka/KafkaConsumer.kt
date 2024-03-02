@@ -35,7 +35,7 @@ class KafkaConsumer(
             }
             productDeletedEvent -> {
                 log.info("ProductDeleted event received to delete in read db: $event")
-                productWriterRepository.deleteById(event.data as Int)
+                productWriterRepository.deleteById(event.data as String)
             }
             else -> log.info("Event not found: $event")
         }

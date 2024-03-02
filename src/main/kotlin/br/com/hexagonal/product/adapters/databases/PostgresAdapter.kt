@@ -20,7 +20,7 @@ class PostgresAdapter(@PersistenceContext(type = PersistenceContextType.TRANSACT
         return query.resultList.map { it.toDomain() }
     }
 
-    override fun findById(id: Int): Product? {
+    override fun findById(id: String): Product? {
         return entityManager.find(PostgresProductDTO::class.java, id)?.toDomain()
     }
 
@@ -28,7 +28,6 @@ class PostgresAdapter(@PersistenceContext(type = PersistenceContextType.TRANSACT
     override fun save(entity: Product): Product {
         val productDTO = PostgresProductDTO.fromDomain(entity)
         return entityManager.merge(productDTO).toDomain()
-//        return entityManager.find(PostgresProductDTO::class.java, entity.id)?.toDomain() ?: throw RuntimeException("Product not found")
     }
 
     @Transactional
@@ -38,7 +37,7 @@ class PostgresAdapter(@PersistenceContext(type = PersistenceContextType.TRANSACT
         return entityManager.find(PostgresProductDTO::class.java, entity.id)?.toDomain() ?: throw RuntimeException("Product not found")
     }
 
-    override fun deleteById(id: Int) {
+    override fun deleteById(id: String) {
        entityManager.createQuery("DELETE FROM PostgresProductDTO p WHERE p.id = :id")
             .setParameter("id", id)
            .executeUpdate()

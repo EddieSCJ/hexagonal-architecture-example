@@ -1,7 +1,7 @@
 package br.com.hexagonal.product.domain.entity
 
 data class Product(
-    val id: Int? = null,
+    val id: String? = null,
     val name: String,
     val price: Double,
     val description: String,

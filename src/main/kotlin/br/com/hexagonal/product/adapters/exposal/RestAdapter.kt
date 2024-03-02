@@ -18,18 +18,18 @@ class RestAdapter(val service: IProductService) {
 
     @PutMapping("/update/{id}")
     fun updateProduct(@RequestBody product: ProductDTO, @PathVariable id: String): ResponseEntity<ProductDTO> {
-        val result = ProductDTO.fromDomain(service.updateProduct(product.toDomain().copy(id = id.toInt())))
+        val result = ProductDTO.fromDomain(service.updateProduct(product.toDomain().copy(id = id)))
         return ResponseEntity.ok(result)
     }
 
     @DeleteMapping("/delete/{id}")
     fun deleteProduct(@PathVariable id: String): ResponseEntity<Unit> {
-        service.deleteProduct(id.toInt())
+        service.deleteProduct(id)
         return ResponseEntity.ok().build()
     }
 
     @GetMapping("/{id}")
-    fun getProduct(@PathVariable id: Int): ResponseEntity<ProductDTO> {
+    fun getProduct(@PathVariable id: String): ResponseEntity<ProductDTO> {
         val product: Product? = service.getProduct(id)
         product?.let { return ResponseEntity.ok(ProductDTO.fromDomain(it)) } ?: return ResponseEntity.notFound().build()
     }
