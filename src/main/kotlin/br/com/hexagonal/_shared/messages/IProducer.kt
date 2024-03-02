@@ -1,5 +1,5 @@
 package br.com.hexagonal._shared.messages
 
 interface IProducer {
-    fun produce(message: String)
+    fun produce(queue: String, message: String)
 }

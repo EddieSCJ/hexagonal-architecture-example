@@ -5,20 +5,20 @@ import org.springframework.stereotype.Component
 @Component
 class EventDispatcher : IEventDispatcher {
     private val handlers: MutableMap<String, MutableList<IEventHandler>> = mutableMapOf()
-    override fun addHandler(event: Event, handler: IEventHandler) {
-        handlers[event.name]?.add(handler) ?: handlers.put(event.name, mutableListOf(handler))
+    override fun addHandler(eventName: String, handler: IEventHandler) {
+        handlers[eventName]?.add(handler) ?: handlers.put(eventName, mutableListOf(handler))
     }
 
-    override fun removeHandler(event: Event, handler: IEventHandler) {
-        handlers[event.name]
+    override fun removeHandler(eventName: String, handler: IEventHandler) {
+        handlers[eventName]
             ?.find { it.eventHandlerName == handler.eventHandlerName }
-            ?.let { handlers[event.name]?.remove(it) }
+            ?.let { handlers[eventName]?.remove(it) }
     }
 
-    override fun dispatch(event: Event) {
-        handlers[event.name]
+    override fun dispatch(eventName: String, event: Event) {
+        handlers[eventName]
             ?.forEach { it.handle(event) }
-            ?: throw Exception("No handler registered for event: ${event.name}")
+            ?: throw Exception("No handler registered for event: $eventName")
     }
 
 }

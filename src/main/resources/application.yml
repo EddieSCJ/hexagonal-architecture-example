@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: password
+  kafka:
+    admin:
+      auto-create: true
+      client-id: hexagonal-boilerplate
+    bootstrap-servers: localhost:9093
+  data:
+    mongodb:
+      uri: 'mongodb://read_admin:read_admin@localhost:27017/readdb?ssl=false&authSource=admin&authMechanism=SCRAM-SHA-1'
+    redis:
+      host: localhost
+      port: 6379
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:postgresql://localhost:5432/writedb
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jooq:
+    sql-dialect: POSTGRES
